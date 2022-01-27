@@ -23,7 +23,6 @@ i {
 .container {
   width: 25%;
   height: 90vh;
-  border: 2px solid #ccc;
 }
 .containerScroll {
   width: 100%;
@@ -86,7 +85,7 @@ i {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .interact p {
   font-size: 0.7em;
@@ -103,9 +102,10 @@ i {
   color: rgb(238, 238, 238);
   font-size: 0.8em;
   padding: 10px;
+  padding-bottom: 25px;
 }
 .info .title {
-  margin: 7px 0px;
+  margin: 10px 0px;
 }
 .info .music {
   display: flex;
@@ -171,3 +171,4 @@ i {
     bottom: 0;
   }
 }
+
