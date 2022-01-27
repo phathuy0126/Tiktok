@@ -1,0 +1,173 @@
+.theme {
+  width: 260px;
+  height: 80vh;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+i {
+  cursor: pointer;
+}
+.container {
+  width: 25%;
+  height: 90vh;
+  border: 2px solid #ccc;
+}
+.containerScroll {
+  width: 100%;
+  height: 93%;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+.containerScroll::-webkit-scrollbar {
+  display: none;
+}
+.containerItem {
+  height: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.video {
+  height: 100%;
+}
+.video video,
+.video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* interact */
+.interact {
+  color: rgb(235, 235, 235);
+  position: absolute;
+  right: 10px;
+  top: 30%;
+}
+.interact .avatar {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.interact .avatar .img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 0;
+}
+.interact .avatar .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.interact .avatar .check {
+  position: absolute;
+  background-color: #f52f56;
+  border-radius: 100px;
+  bottom: -28px;
+  font-size: 0.5em;
+}
+.interact div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.interact p {
+  font-size: 0.7em;
+}
+.interact i {
+  font-size: 2em;
+}
+/* info */
+.info {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: rgb(238, 238, 238);
+  font-size: 0.8em;
+  padding: 10px;
+}
+.info .title {
+  margin: 7px 0px;
+}
+.info .music {
+  display: flex;
+  align-items: center;
+}
+.info .music i {
+  font-size: 1em;
+}
+.info .music marquee {
+  margin: 0px 10px;
+}
+.info .music .musicAvatar {
+  width: 40px;
+  border-radius: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info .music .musicAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* navbar */
+.navbar {
+  position: fixed;
+  bottom: 4vh;
+  width: 25%;
+  display: flex;
+  background-color: #000;
+  padding: 10px 0px;
+}
+.navbar div {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(235, 235, 235);
+}
+.navbar div i {
+  font-size: 1.4em;
+}
+.navbar div p {
+  font-size: 0.7em;
+}
+.navbar .camera i {
+  background-color: red;
+  border-radius: 100px;
+  padding: 10px;
+}
+.navbar .active {
+  font-weight: bold;
+}
+@media screen and (max-width: 767.98px) {
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  .navbar {
+    width: 100%;
+    bottom: 0;
+  }
+}
