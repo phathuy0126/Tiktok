@@ -44,7 +44,7 @@ const app = {
             return `
                 <div class="containerItem">
                     <div class="video">
-                        <video src="video/${post.src}" data-indexPost=${index}></video>
+                        <video src="video/${post.src}"></video>
                     </div>
                     <div class="interact">
                         <div class="interactItem avatar">
@@ -86,22 +86,39 @@ const app = {
         containerScroll.innerHTML = html;
     },
     handleEvent: function () {
+        const _this = this;
         const video = $$('.video video');
 
-        let indexPost = 0;        
-        // containerScroll.onscroll = function () {
-        //     const distanceTop = containerScroll.scrollTop  
-        //     console.log(distanceTop);               
-        // }
+        containerScroll.onscroll = function () {
+            const distanceTop = containerScroll.scrollTop  
+            _this.handleEvent();               
+        }
 
         video.forEach(ele => {            
             const rectTop = ele.getBoundingClientRect().top;
+            if (rectTop === 0) {
+                ele.classList.add('play');
+                ele.play();
+                ele.ontimeupdate = function (e) {
+                    e.target.onended = function () {                        
+                        e.target.play();
+                    }
+                }
+            }else {
+                ele.pause();
+                ele.currentTime = 0;
+            }
             ele.onclick = function (e) {
-                indexPost = e.target.dataset.indexpost;
-                indexPost != e.target.dataset.indexpost ? ele.pause() : video[indexPost].play()                
-                console.log(e.target.dataset.indexpost);
-            }            
-            console.log(ele.offsetHeight)            
+                // indexPost = e.target.dataset.indexpost;
+                // indexPost !== e.target.dataset.indexpost ? ele.pause() : video[indexPost].play()                
+                if (e.target.className === 'play') {
+                    e.target.pause();
+                    e.target.classList.remove('play')   
+                } else {
+                    e.target.play();
+                    e.target.classList.add('play')   
+                }
+            }                        
         });
     },
     start: function () {
