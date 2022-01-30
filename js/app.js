@@ -40,7 +40,7 @@ const app = {
         }
     ],
     renderPost: function () {
-        const htmls = this.tiktokPost.map(function (post,index) {
+        const htmls = this.tiktokPost.map(function (post) {
             return `
                 <div class="containerItem">
                     <div class="video">
@@ -88,37 +88,39 @@ const app = {
     handleEvent: function () {
         const _this = this;
         const video = $$('.video video');
+        const iPlayPause = $('#playPause')
 
         containerScroll.onscroll = function () {
-            const distanceTop = containerScroll.scrollTop  
-            _this.handleEvent();               
+            const distanceTop = containerScroll.scrollTop
+            _this.handleEvent();
         }
-
-        video.forEach(ele => {            
+        video.forEach(ele => {
             const rectTop = ele.getBoundingClientRect().top;
             if (rectTop === 0) {
                 ele.classList.add('play');
                 ele.play();
-                ele.ontimeupdate = function (e) {
-                    e.target.onended = function () {                        
+                ele.onended = function (e) {
+                    e.target.play();
+                }
+                ele.onclick = function (e) {
+                    iPlayPause.style.visibility = 'visible'
+                    setTimeout(() => {
+                        iPlayPause.style.visibility = 'hidden'
+                    }, 500);
+                    if (e.target.paused) {
                         e.target.play();
+                        iPlayPause.classList.remove('bx-play')
+                        iPlayPause.classList.add('bx-pause')
+                    } else {
+                        e.target.pause();
+                        iPlayPause.classList.remove('bx-pause')
+                        iPlayPause.classList.add('bx-play')
                     }
                 }
-            }else {
+            } else {
                 ele.pause();
                 ele.currentTime = 0;
             }
-            ele.onclick = function (e) {
-                // indexPost = e.target.dataset.indexpost;
-                // indexPost !== e.target.dataset.indexpost ? ele.pause() : video[indexPost].play()                
-                if (e.target.className === 'play') {
-                    e.target.pause();
-                    e.target.classList.remove('play')   
-                } else {
-                    e.target.play();
-                    e.target.classList.add('play')   
-                }
-            }                        
         });
     },
     start: function () {
