@@ -8,14 +8,13 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 i {
   cursor: pointer;
 }
 #playPause {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: #fff;
@@ -138,7 +137,6 @@ i {
 /* navbar */
 .navbar {
   position: fixed;
-  bottom: 5vh;
   width: 25%;
   height: 60px;
   display: flex;
@@ -172,7 +170,9 @@ i {
     height: 100%;
   }
   .navbar {
-    width: 100%;
-    bottom: 0;
+    width: 100%;    
+  }
+  #playPause {
+    top: 45%;
   }
 }

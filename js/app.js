@@ -91,37 +91,35 @@ const app = {
         const iPlayPause = $('#playPause')
 
         containerScroll.onscroll = function () {
-            const distanceTop = containerScroll.scrollTop
-            _this.handleEvent();
-        }
-        video.forEach(ele => {
-            const rectTop = ele.getBoundingClientRect().top;
-            if (rectTop === 0) {
-                ele.classList.add('play');
-                ele.play();
-                ele.onended = function (e) {
-                    e.target.play();
-                }
-                ele.onclick = function (e) {
-                    iPlayPause.style.visibility = 'visible'
-                    setTimeout(() => {
-                        iPlayPause.style.visibility = 'hidden'
-                    }, 500);
-                    if (e.target.paused) {
+            reLoad();
+        }        
+        const reLoad = function () {
+            iPlayPause.style.visibility = 'hidden'
+            video.forEach(ele => {
+                const rectTop = ele.getBoundingClientRect().top;
+                if (Math.floor(rectTop) === 0) {
+                    ele.play();
+                    ele.onended = function (e) {
                         e.target.play();
-                        iPlayPause.classList.remove('bx-play')
-                        iPlayPause.classList.add('bx-pause')
-                    } else {
-                        e.target.pause();
-                        iPlayPause.classList.remove('bx-pause')
-                        iPlayPause.classList.add('bx-play')
                     }
+                    ele.onclick = function (e) {
+                        if (e.target.paused) {
+                            e.target.play();
+                            setTimeout(() => {
+                                iPlayPause.style.visibility = 'hidden'
+                            }, 200);
+                        } else {
+                            e.target.pause();
+                            iPlayPause.style.visibility = 'visible'
+                        }
+                    }
+                } else {
+                    ele.pause();
+                    ele.currentTime = 0;
                 }
-            } else {
-                ele.pause();
-                ele.currentTime = 0;
-            }
-        });
+            });
+        }
+        reLoad();
     },
     start: function () {
         this.renderPost();
