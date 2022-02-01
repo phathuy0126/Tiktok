@@ -12,6 +12,21 @@ body {
 i {
   cursor: pointer;
 }
+/* windowLoader */
+.windowLoad {
+  position: fixed;
+  background-color: #000;
+  top: 0;  
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.windowLoad img {
+  width: 200px;
+}
 #playPause {
   position: absolute;
   top: 40%;
@@ -135,9 +150,8 @@ i {
   object-fit: cover;
 }
 /* navbar */
-.navbar {
-  position: fixed;
-  width: 25%;
+.navbar {  
+  width: 100%;
   height: 60px;
   display: flex;
   background-color: #000;
@@ -168,10 +182,7 @@ i {
   .container {
     width: 100%;
     height: 100%;
-  }
-  .navbar {
-    width: 100%;    
-  }
+  }  
   #playPause {
     top: 45%;
   }
