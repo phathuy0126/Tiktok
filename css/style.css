@@ -8,6 +8,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
+  background-color: #000;
 }
 i {
   cursor: pointer;
@@ -58,7 +59,7 @@ i {
 }
 .container {
   width: 25%;
-  height: 90vh;
+  height: 92vh;
 }
 .containerScroll {  
   width: 100%;
