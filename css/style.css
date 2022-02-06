@@ -12,17 +12,36 @@ body {
 i {
   cursor: pointer;
 }
+/* Allow */
+.allow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.allow button {
+  border: 2px #ef6eae solid;
+  background-color: transparent;
+  padding: 10px 20px;
+  color: #ef6eae;
+  cursor: pointer;
+  font-weight: bold;
+}
+.allow button:hover {
+  border: 2px #ffa260 solid;
+  color: #ffa260;  
+}
 /* windowLoader */
 .windowLoad {
   position: fixed;
   background-color: #000;
-  top: 0;  
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   z-index: 9999;
 }
 .windowLoad img {
@@ -32,10 +51,10 @@ i {
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   color: #fff;
   font-size: 3em;
-  z-index: 999;    
+  z-index: 999;
 }
 .container {
   width: 25%;
@@ -134,8 +153,10 @@ i {
 .info .music i {
   font-size: 1em;
 }
-.info .music marquee {
+.info .music .nameMusic {
+  flex: 1;
   margin: 0px 10px;
+  overflow: hidden;
 }
 .info .music .musicAvatar {
   width: 40px;
@@ -151,7 +172,7 @@ i {
   object-fit: cover;
 }
 /* navbar */
-.navbar {  
+.navbar {
   width: 100%;
   height: 60px;
   display: flex;
@@ -183,7 +204,7 @@ i {
   .container {
     width: 100%;
     height: 100%;
-  }  
+  }
   #playPause {
     top: 45%;
   }

@@ -106,7 +106,9 @@ const app = {
                             <p class="title">${post.title}</p>
                             <div class="music">
                                 <i class="bx bxs-music"></i>
-                                <marquee>${post.nameMusic}</marquee>
+                                <div class="nameMusic">
+                                    <p>${post.nameMusic}</p>
+                                </div>
                                 <div class="musicAvatar">
                                     <img src=${post.avatarMusic} alt="">
                                 </div>
@@ -123,45 +125,63 @@ const app = {
         const video = $$('.video video');
         const iPlayPause = $('#playPause');
         const hearts = $$('.interact .heart');
+        const nameMusics = $$('.info .music .nameMusic p');
         containerScroll.onscroll = function () {
             reLoad();
         }
         const reLoad = function () {
             iPlayPause.style.visibility = 'hidden'
-            video.forEach(ele => {
+            video.forEach(ele => {                
                 const rectTop = ele.getBoundingClientRect().top;
                 if (Math.floor(rectTop) === 0) {
                     ele.play();
                     ele.onended = function (e) {
                         e.target.play();
                     }
-                    ele.onclick = function (e) {
+                    handleNameMusic(true)
+                    ele.onclick = function (e) {                        
                         if (e.target.paused) {
+                            handleNameMusic(true)
                             e.target.play();
                             setTimeout(() => {
                                 iPlayPause.style.visibility = 'hidden'
                             }, 200);
                         } else {
+                            handleNameMusic(false)
                             e.target.pause();
                             iPlayPause.style.visibility = 'visible'
                         }
                     }
-                } else {
+                } else {        
                     ele.pause();
                     ele.currentTime = 0;
                 }
             });
         }
         reLoad();
+        //handle play pause nameMusic
+        function handleNameMusic(dr) {
+            nameMusics.forEach(nameMusic => {
+                const aniNameMusic = nameMusic.animate([
+                    // keyframes
+                    { transform: 'translateX(-60%)' },
+                    { transform: 'translateX(100%)' }
+                ], {
+                    // timing options
+                    duration: 4000,
+                    iterations: Infinity
+                });                
+                dr ? aniNameMusic.play() : aniNameMusic.pause();
+            });            
+        }
         // thả tim     
-        hearts.forEach((heart,index) => {
+        hearts.forEach((heart) => {
             heart.onclick = function () {
                 // handle toggle click                
-                heart.querySelector('i').style.color === 'red' ? 
-                heart.querySelector('i').style.color = 'white' : 
-                heart.querySelector('i').style.color = 'red';
-                console.log(heart,index);                      
-            }            
+                heart.querySelector('i').style.color === 'red' ?
+                    heart.querySelector('i').style.color = 'white' :
+                    heart.querySelector('i').style.color = 'red';
+            }
         });
     },
     start: function () {
@@ -169,7 +189,10 @@ const app = {
         this.handleEvent();
     }
 }
-app.start();
+$('.allow').onclick = function () {
+    app.start();
+    $('.allow').remove();
+}
 window.onload = function () {
     windowLoad.style.display = 'none';
 }
