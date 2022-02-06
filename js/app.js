@@ -189,11 +189,12 @@ const app = {
         this.handleEvent();
     }
 }
-$('.allow').onclick = function () {
-    app.start();
-    $('.allow').remove();
-    window.onload = function () {
-        windowLoad.style.display = 'none';
-    }
+app.start();
+// $('.allow').onclick = function () {    
+//     $('.allow').remove();
+// }
+window.onload = function () {
+    windowLoad.remove();  
 }
+
 
