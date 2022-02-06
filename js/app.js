@@ -192,7 +192,8 @@ const app = {
 $('.allow').onclick = function () {
     app.start();
     $('.allow').remove();
+    window.onload = function () {
+        windowLoad.style.display = 'none';
+    }
 }
-window.onload = function () {
-    windowLoad.style.display = 'none';
-}
+
