@@ -12,6 +12,18 @@ body {
 i {
   cursor: pointer;
 }
+.sourceCode {
+  position: fixed;
+  bottom: 10px;  
+}
+.sourceCode p {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* background: linear-gradient(to right, #30cfd0 0%, #330867 100%);
+  background-clip: text;
+  color: transparent; */
+}
 /* Allow */
 .allow {
   position: absolute;
@@ -29,7 +41,7 @@ i {
 }
 .allow button:hover {
   border: 2px #ffa260 solid;
-  color: #ffa260;  
+  color: #ffa260;
 }
 /* windowLoader */
 .windowLoad {
@@ -60,7 +72,7 @@ i {
   width: 25%;
   height: 92vh;
 }
-.containerScroll {  
+.containerScroll {
   width: 100%;
   height: calc(100% - 60px);
   overflow: scroll;

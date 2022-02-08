@@ -140,9 +140,18 @@ const app = {
         }
         const reLoad = function () {
             iPlayPause.style.visibility = 'hidden'
-            video.forEach(ele => {                
+            video.forEach(ele => {                  
+                // if (ele.networkState == 2) {
+                //     alert('đang tải =)))')
+                // }                
                 const rectTop = ele.getBoundingClientRect().top;
-                if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {
+                if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {                             
+                    ele.ontimeupdate = function (e) {
+                        // console.log(e.target.networkState,'huhu');
+                        if (e.target.networkState != 1) {
+                            alert('đang load =)))')                                                                                     
+                        }
+                    }
                     ele.play();
                     ele.onended = function (e) {
                         e.target.play();
