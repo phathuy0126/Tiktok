@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 const windowLoad = $('.windowLoad');
 const containerScroll = $('.containerScroll');
 const navbar = $('.navbar');
-
+containerScroll.style.height = window.innerHeight - 60 + 'px';
 const app = {
     tiktokPost: [
         {
@@ -148,9 +148,9 @@ const app = {
                 if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {                             
                     ele.ontimeupdate = function (e) {
                         // console.log(e.target.networkState,'huhu');
-                        if (e.target.networkState != 1) {
-                            alert('đang load =)))')                                                                                     
-                        }
+                        // if (e.target.networkState != 1) {
+                        //     alert('đang load =)))')                                                                                     
+                        // }
                     }
                     ele.play();
                     ele.onended = function (e) {
