@@ -1,7 +1,7 @@
 "use strict";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-const windowLoad = $('.windowLoad');
+const container = $('.container');
 const containerScroll = $('.containerScroll');
 const navbar = $('.navbar');
 containerScroll.style.height = window.innerHeight - 60 + 'px';
@@ -135,29 +135,34 @@ const app = {
         const hearts = $$('.interact .heart');
         const nameMusics = $$('.info .music .nameMusic p');
         const home = $('.navbar .home');
+        const allow = $('.allow');
+        const overlayLoader = $('.overlayLoader');
         containerScroll.onscroll = function () {
             reLoad();
         }
         const reLoad = function () {
             iPlayPause.style.visibility = 'hidden'
-            video.forEach(ele => {                  
-                // if (ele.networkState == 2) {
-                //     alert('đang tải =)))')
-                // }                
+            video.forEach(ele => {
+                if (ele.networkState != 1) {
+                    overlayLoader.style.display = 'flex';
+                }                
                 const rectTop = ele.getBoundingClientRect().top;
-                if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {                             
-                    ele.ontimeupdate = function (e) {
-                        // console.log(e.target.networkState,'huhu');
-                        // if (e.target.networkState != 1) {
-                        //     alert('đang load =)))')                                                                                     
-                        // }
+                if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {
+                    ele.ontimeupdate = function (e) {                        
+                        if (e.target.networkState == 1) {
+                            overlayLoader.style.display = 'none';                                                                                                                    
+                            console.log('đã tải xong video');
+                        } else {
+                            overlayLoader.style.display = 'flex';
+                            console.log('chưa tải video xong');
+                        }
                     }
                     ele.play();
                     ele.onended = function (e) {
                         e.target.play();
                     }
                     handleNameMusic(true)
-                    ele.onclick = function (e) {                        
+                    ele.onclick = function (e) {
                         if (e.target.paused) {
                             handleNameMusic(true)
                             e.target.play();
@@ -170,7 +175,19 @@ const app = {
                             iPlayPause.style.visibility = 'visible'
                         }
                     }
-                } else {        
+                    iPlayPause.onclick = function () {
+                        handleNameMusic(true)
+                        ele.play();
+                        setTimeout(() => {
+                            iPlayPause.style.visibility = 'hidden'
+                        }, 200);
+                    }
+                    //allow
+                    allow.onclick = function () {
+                        allow.remove();
+                        ele.play();
+                    }
+                } else {
                     ele.pause();
                     ele.currentTime = 0;
                 }
@@ -189,9 +206,9 @@ const app = {
                     // timing options
                     duration: 5000,
                     iterations: Infinity
-                });                
+                });
                 dr ? aniNameMusic.play() : aniNameMusic.pause();
-            });            
+            });
         }
         // thả tim     
         hearts.forEach((heart) => {
@@ -207,14 +224,13 @@ const app = {
         }
     },
     start: function () {
+        console.warn('cảnh báo virus xâm nhập');
+        console.error('vui lòng tắt console ngay lập tức')
         this.renderPost();
         this.handleEvent();
     }
 }
 app.start();
-window.addEventListener('DOMContentLoaded', function () {
-    windowLoad.remove(); 
-})
 
 
 
