@@ -143,33 +143,21 @@ const app = {
         const reLoad = function () {
             iPlayPause.style.visibility = 'hidden'
             video.forEach(ele => {
-                if (ele.networkState != 1) {
-                    overlayLoader.style.display = 'flex';
-                }                
                 const rectTop = ele.getBoundingClientRect().top;
                 if (Math.floor(rectTop) === 0 || Math.round(rectTop) === 0) {
-                    ele.ontimeupdate = function (e) {                        
-                        if (e.target.networkState == 1) {
-                            overlayLoader.style.display = 'none';                                                                                                                    
-                            console.log('đã tải xong video');
-                        } else {
-                            overlayLoader.style.display = 'flex';
-                            console.log('chưa tải video xong');
-                        }
-                    }
                     ele.play();
                     ele.onended = function (e) {
                         e.target.play();
                     }
                     handleNameMusic(true)
                     ele.onclick = function (e) {
-                        if (e.target.paused) {
+                        if (e.target.paused) {                            
                             handleNameMusic(true)
                             e.target.play();
                             setTimeout(() => {
                                 iPlayPause.style.visibility = 'hidden'
                             }, 200);
-                        } else {
+                        } else {                            
                             handleNameMusic(false)
                             e.target.pause();
                             iPlayPause.style.visibility = 'visible'
@@ -186,6 +174,20 @@ const app = {
                     allow.onclick = function () {
                         allow.remove();
                         ele.play();
+                    }
+                    //kiểm tra video load
+                    // if (ele.networkState != 1) {
+                    //     overlayLoader.style.display = 'flex';
+                    // }
+                    ele.ontimeupdate = function (e) {                        
+                        allow.remove();
+                        if (e.target.networkState == 1) {
+                            overlayLoader.style.display = 'none';
+                            console.log('đã tải xong video');                            
+                        } else {
+                            overlayLoader.style.display = 'flex';
+                            console.log('chưa tải video xong');
+                        }
                     }
                 } else {
                     ele.pause();
@@ -220,7 +222,7 @@ const app = {
             }
         });
         home.onclick = function () {
-            window.location.reload();
+            window.location.reload();                                        
         }
     },
     start: function () {
