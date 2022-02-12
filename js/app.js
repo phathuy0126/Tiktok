@@ -1,10 +1,8 @@
 "use strict";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-const container = $('.container');
 const containerScroll = $('.containerScroll');
-const navbar = $('.navbar');
-containerScroll.style.height = window.innerHeight - 60 + 'px';
+const iPlayPause = $('#playPause');
 const app = {
     tiktokPost: [
         {
@@ -130,14 +128,15 @@ const app = {
     },
     handleEvent: function () {
         const _this = this;
+        const sectionHome = $('#home');
         const video = $$('.video video');
-        const iPlayPause = $('#playPause');
         const hearts = $$('.interact .heart');
-        const nameMusics = $$('.info .music .nameMusic p');
+        // const nameMusics = $$('.info .music .nameMusic p');
         const home = $('.navbar .home');
         const allow = $('.allow');
         const overlayLoader = $('.overlayLoader');
-        containerScroll.onscroll = function () {
+        const user = $('.navbar .user');        
+        containerScroll.onscroll = function () {                        
             reLoad();
         }
         const reLoad = function () {
@@ -149,22 +148,22 @@ const app = {
                     ele.onended = function (e) {
                         e.target.play();
                     }
-                    handleNameMusic(true)
+                    // handleNameMusic(true)
                     ele.onclick = function (e) {
-                        if (e.target.paused) {                            
-                            handleNameMusic(true)
+                        if (e.target.paused) {
+                            // handleNameMusic(true)
                             e.target.play();
                             setTimeout(() => {
                                 iPlayPause.style.visibility = 'hidden'
                             }, 200);
-                        } else {                            
-                            handleNameMusic(false)
+                        } else {
+                            // handleNameMusic(false)
                             e.target.pause();
                             iPlayPause.style.visibility = 'visible'
                         }
                     }
                     iPlayPause.onclick = function () {
-                        handleNameMusic(true)
+                        // handleNameMusic(true)
                         ele.play();
                         setTimeout(() => {
                             iPlayPause.style.visibility = 'hidden'
@@ -176,14 +175,15 @@ const app = {
                         ele.play();
                     }
                     //kiểm tra video load
-                    // if (ele.networkState != 1) {
-                    //     overlayLoader.style.display = 'flex';
-                    // }
-                    ele.ontimeupdate = function (e) {                        
+                    handleVideoLoad(ele);
+                    ele.ontimeupdate = function (e) {
                         allow.remove();
-                        if (e.target.networkState == 1) {
+                        handleVideoLoad(e.target);
+                    }
+                    function handleVideoLoad(e) {
+                        if (e.networkState == 1) {
                             overlayLoader.style.display = 'none';
-                            console.log('đã tải xong video');                            
+                            console.log('đã tải xong video');
                         } else {
                             overlayLoader.style.display = 'flex';
                             console.log('chưa tải video xong');
@@ -197,21 +197,21 @@ const app = {
         }
         reLoad();
         //handle play pause nameMusic
-        function handleNameMusic(dr) {
-            nameMusics.forEach(nameMusic => {
-                const aniNameMusic = nameMusic.animate([
-                    // keyframes
-                    { transform: 'translateX(0%)' },
-                    { transform: 'translateX(40%)' },
-                    { transform: 'translateX(0%)' }
-                ], {
-                    // timing options
-                    duration: 5000,
-                    iterations: Infinity
-                });
-                dr ? aniNameMusic.play() : aniNameMusic.pause();
-            });
-        }
+        // function handleNameMusic(dr) {
+        //     nameMusics.forEach(nameMusic => {
+        //         const aniNameMusic = nameMusic.animate([
+        //             // keyframes
+        //             { transform: 'translateX(0%)' },
+        //             { transform: 'translateX(40%)' },
+        //             { transform: 'translateX(0%)' }
+        //         ], {
+        //             // timing options
+        //             duration: 5000,
+        //             iterations: Infinity
+        //         });
+        //         dr ? aniNameMusic.play() : aniNameMusic.pause();
+        //     });
+        // }
         // thả tim     
         hearts.forEach((heart) => {
             heart.onclick = function () {
@@ -221,18 +221,88 @@ const app = {
                     heart.querySelector('i').style.color = 'red';
             }
         });
-        home.onclick = function () {
-            window.location.reload();                                        
-        }
+        // home.onclick = function () {
+        //     window.location.reload();
+        // }        
     },
-    start: function () {
+    //User
+    user: [
+        
+    ],    
+    renderUser: function () {
+        // const htmls = this.tiktokPost.map(function (post) {
+        //     return `
+        //             <h1>page User</h1>
+        //             `
+        // });
+        // const html = htmls.join("");
+        const html = `<h1>page User</h1>`;
+        containerScroll.innerHTML = html;
+    },
+    handleEventUser: function () {
+
+    },
+    //mailbox
+    renderMailbox: function () {
+        const htmls = this.tiktokPost.map(function (post) {
+            return `
+                    <h1>page mailbox</h1>
+                    `
+        });
+        const html = htmls.join("");
+        containerScroll.innerHTML = html;
+    },
+    handleEventMailbox: function () {
+
+    },
+    //explore
+    renderExplore: function () {
+        const htmls = this.tiktokPost.map(function (post) {
+            return `
+                    <h1>page khám phá</h1>
+                    `
+        });
+        const html = htmls.join("");
+        containerScroll.innerHTML = html;
+    },
+    handleEventExplore: function () {
+
+    },
+    //start
+    startHome: function () {
+        containerScroll.style.height = window.innerHeight - 60 + 'px';
         console.warn('cảnh báo virus xâm nhập');
         console.error('vui lòng tắt console ngay lập tức')
         this.renderPost();
         this.handleEvent();
+    },    
+    startUser: function () {
+        iPlayPause.style.visibility = 'hidden'
+        this.renderUser();
+        this.handleEventUser();
+    },
+    startMailbox: function () {
+        iPlayPause.style.visibility = 'hidden'
+        this.renderMailbox();
+        this.handleEventMailbox();
+    },
+    startExplore: function () {
+        iPlayPause.style.visibility = 'hidden'
+        this.renderExplore();
+        this.handleEventExplore();
     }
 }
-app.start();
+app.startHome();
 
-
-
+$('.navbar .user').onclick = function () {        
+    app.startUser();
+}
+$('.home').onclick = function () {
+    app.startHome();
+}
+$('.mailbox').onclick = function () {
+    app.startMailbox();
+}
+$('.explore').onclick = function () {
+    app.startExplore();
+}
