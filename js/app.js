@@ -128,7 +128,6 @@ const app = {
     },
     handleEvent: function () {
         const _this = this;
-        const sectionHome = $('#home');
         const video = $$('.video video');
         const hearts = $$('.interact .heart');
         // const nameMusics = $$('.info .music .nameMusic p');
@@ -225,31 +224,14 @@ const app = {
         //     window.location.reload();
         // }        
     },
-    //User
-    user: [
-        
-    ],    
-    renderUser: function () {
-        // const htmls = this.tiktokPost.map(function (post) {
-        //     return `
-        //             <h1>page User</h1>
-        //             `
-        // });
-        // const html = htmls.join("");
-        const html = `<h1>page User</h1>`;
-        containerScroll.innerHTML = html;
+    init: function () {        
+        containerScroll.scrollTo('0px', '0px');
+        containerScroll.style.height = window.innerHeight - 60 + 'px';
     },
-    handleEventUser: function () {
-
-    },
+    
     //mailbox
     renderMailbox: function () {
-        const htmls = this.tiktokPost.map(function (post) {
-            return `
-                    <h1>page mailbox</h1>
-                    `
-        });
-        const html = htmls.join("");
+        const html = `<h1>Hộp thư đang trong quá trình cập nhật</h1>`;
         containerScroll.innerHTML = html;
     },
     handleEventMailbox: function () {
@@ -257,52 +239,120 @@ const app = {
     },
     //explore
     renderExplore: function () {
-        const htmls = this.tiktokPost.map(function (post) {
-            return `
-                    <h1>page khám phá</h1>
-                    `
-        });
-        const html = htmls.join("");
+        const html = `<h1>Khám phá đang trong quá trình cập nhật</h1>`;
         containerScroll.innerHTML = html;
     },
     handleEventExplore: function () {
 
     },
+    //User
+    renderUser: function () {        
+        const html = `
+        <div class="user">
+            <div class="navbarUser">
+                <div class="col">
+                    <i class="bx bx-user-plus"></i>
+                </div>
+                <div class="col nameUser">
+                    <span>Phát Huy</span>
+                    <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="col">
+                    <i class="bx bx-menu"></i>
+                </div>
+            </div>
+            <div class="profileUser">
+                <div class="row avatar">
+                    <div class="img">
+                        <img src="https://yt3.ggpht.com/ytc/AAUvwngVidpfS3gfW_OycU0IsosjQurTmGYk34Cb9iJD=s900-c-k-c0x00ffffff-no-rj" alt="">
+                    </div>
+                    <div class="nameId">
+                        <p>@phathuy_63</p>
+                    </div>
+                </div>
+                <div class="row follow">
+                    <div class="col following">
+                        <strong>1</strong>                            
+                        <p>Đang Follow</p>
+                    </div>
+                    <div class="col follower">
+                        <strong>1.2M</strong>                            
+                        <p>Follower</p>
+                    </div>
+                    <div class="col like">
+                        <strong>12M</strong>                            
+                        <p>Thích</p>
+                    </div>
+                </div>
+                <div class="row descriptions">
+                    <p>👇</p>
+                    <a href="https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/">https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/</a>
+                </div>
+                <div class="myPosts">
+                    <div class="titleMyPost">
+                        <strong>Bài đăng của tôi</strong>
+                    </div>
+                    <div class="myPostContainer">
+                        ${this.tiktokPost.map(function (post) {
+                            return `
+                            <div class="post">
+                                <video src="video/${post.src}"></video>
+                            </div>
+                            `                            
+                        }).join("")}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        containerScroll.innerHTML = html;
+    },
+    handleEventUser: function () {
+        const postUsers = document.querySelectorAll('.myPostContainer .post');
+        postUsers.forEach(postUser => {
+            postUser.onclick = function () {
+                $('.navbar .home').onclick();
+                console.log($('.containerItem .video video'));
+            }
+        })
+    },
     //start
-    startHome: function () {
-        containerScroll.style.height = window.innerHeight - 60 + 'px';
-        console.warn('cảnh báo virus xâm nhập');
-        console.error('vui lòng tắt console ngay lập tức')
+    startHome: function () {               
         this.renderPost();
+        this.init();
         this.handleEvent();
     },    
     startUser: function () {
         iPlayPause.style.visibility = 'hidden'
         this.renderUser();
+        this.init();
         this.handleEventUser();
+        containerScroll.removeEventListener('scroll',this.handleEvent().reLoad);
     },
     startMailbox: function () {
         iPlayPause.style.visibility = 'hidden'
         this.renderMailbox();
+        this.init();
         this.handleEventMailbox();
     },
     startExplore: function () {
         iPlayPause.style.visibility = 'hidden'
         this.renderExplore();
+        this.init();
         this.handleEventExplore();
     }
 }
 app.startHome();
+// $('.allow').remove(); 
 
-$('.navbar .user').onclick = function () {        
-    app.startUser();
+$('.navbar .user').onclick = function () {            
+    app.startUser();        
 }
-$('.home').onclick = function () {
+$('.navbar .home').onclick = function () {
     app.startHome();
 }
-$('.mailbox').onclick = function () {
+$('.navbar .mailbox').onclick = function () {
     app.startMailbox();
 }
-$('.explore').onclick = function () {
+$('.navbar .explore').onclick = function () {
     app.startExplore();
 }
