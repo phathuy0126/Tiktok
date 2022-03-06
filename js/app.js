@@ -285,8 +285,8 @@ const app = {
                     </div>
                 </div>
                 <div class="row descriptions">
-                    <p>👇</p>
-                    <a href="https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/">https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/</a>
+                    <p>Welcom to tiktok clone</p>
+                    /*<a href="https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/">https://phathuy0126.github.io/MyProfile_HuynhPhatHuy/</a>*/
                 </div>
                 <div class="myPosts">
                     <div class="titleMyPost">
