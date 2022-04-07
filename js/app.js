@@ -179,15 +179,15 @@ const app = {
                         allow.remove();
                         handleVideoLoad(e.target);
                     }
-                    function handleVideoLoad(e) {
-                        if (e.networkState == 1) {
-                            overlayLoader.style.display = 'none';
-                            console.log('đã tải xong video');
-                        } else {
-                            overlayLoader.style.display = 'flex';
-                            console.log('chưa tải video xong');
-                        }
-                    }
+                    // function handleVideoLoad(e) {
+                    //     if (e.networkState == 1) {
+                    //         overlayLoader.style.display = 'none';
+                    //         console.log('đã tải xong video');
+                    //     } else {
+                    //         overlayLoader.style.display = 'flex';
+                    //         console.log('chưa tải video xong');
+                    //     }
+                    // }
                 } else {
                     ele.pause();
                     ele.currentTime = 0;
